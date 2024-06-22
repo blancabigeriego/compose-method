@@ -10,21 +10,23 @@ export class List {
     }
 
     public add(element: any): void {
-        if (!this._readOnly) {
-            const newSize = this._size + 1;
-
-            if (newSize > this._elements.length) {
-                const newElements = new Array(this._elements.length + 10);
-
-                for (let i = 0; i < this._size; i++) {
-                    newElements[i] = this._elements[i];
-                }
-
-                this._elements = newElements;
+        if(this._readOnly) return;
+        const newSize = this.getNewSize();
+        
+        if (newSize > this._elements.length) {
+            const newElements = new Array(this._elements.length + 10);
+            for (let i = 0; i < this._size; i++) {
+                newElements[i] = this._elements[i];
             }
-
-            this._elements[this._size++] = element;
+            this._elements = newElements;
         }
+
+        this._elements[this._size++] = element;
+        
+    }
+
+    public getNewSize(): number {
+        return this._size + 1;
     }
 
     public elements(): any[] {
