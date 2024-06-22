@@ -14,19 +14,27 @@ export class List {
         const newSize = this.getNewSize();
         
         if (newSize > this._elements.length) {
-            const newElements = new Array(this._elements.length + 10);
-            for (let i = 0; i < this._size; i++) {
-                newElements[i] = this._elements[i];
-            }
-            this._elements = newElements;
+          this.resizeArray();
         }
 
         this._elements[this._size++] = element;
         
     }
 
-    public getNewSize(): number {
+    private resizeArray(): void {
+        const newElements = this.addTen();
+        for (let i = 0; i < this._size; i++) {
+            newElements[i] = this._elements[i];
+        }
+        this._elements = newElements;
+    }
+
+    private getNewSize(): number {
         return this._size + 1;
+    }
+
+    private addTen(): any[]{
+        return new Array(this._elements.length + 10)
     }
 
     public elements(): any[] {
